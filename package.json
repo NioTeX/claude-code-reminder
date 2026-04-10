@@ -1,0 +1,25 @@
+{
+  "name": "claude-code-reminders",
+  "version": "1.0.0",
+  "description": "Reminders skill for Claude Code — MCP server + cron checker with bus delivery and Telegram fallback",
+  "type": "module",
+  "bin": {
+    "claude-reminders-check": "./check.js"
+  },
+  "scripts": {
+    "check": "node check.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "dotenv": "^16.4.7"
+  },
+  "keywords": ["claude-code", "reminders", "mcp", "telegram", "skill"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nimrod-code/claude-code-reminders"
+  }
+}

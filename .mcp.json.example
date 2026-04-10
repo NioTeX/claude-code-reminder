@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "reminders": {
+      "command": "node",
+      "args": ["/path/to/claude-code-reminders/server.js"]
+    }
+  }
+}
