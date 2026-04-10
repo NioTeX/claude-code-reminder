@@ -70,7 +70,31 @@ Add to your project's `.mcp.json`, or globally in `~/.claude/.mcp.json`:
 
 See `.mcp.json.example` for a template.
 
-### 4. Set up the cron job
+### 4. Start Claude Code
+
+The reminders MCP server uses **channel notifications** to inject due reminders into your conversation. This is an experimental Claude Code feature, so you need to accept the development channels prompt when starting your session.
+
+**Option A: Accept when prompted**
+
+Start Claude Code normally. When it loads the reminders MCP server for the first time, it will prompt you to accept the experimental channel capabilities. Say yes.
+
+```bash
+claude
+```
+
+**Option B: Auto-accept with the flag**
+
+If you want to skip the prompt (e.g., for automated/headless sessions), start Claude Code with:
+
+```bash
+claude --dangerously-load-development-channels
+```
+
+This flag auto-accepts experimental channel capabilities for all MCP servers in that session.
+
+> **Note:** The MCP server must be running (i.e., Claude Code must be open) for webhook delivery to work. If Claude Code is not running, the cron script falls back to Telegram.
+
+### 5. Set up the cron job
 
 The cron job runs `check.js` every minute to find and deliver due reminders:
 
@@ -86,7 +110,7 @@ Add this line (replace paths with your actual paths):
 
 If you used `bash install.sh`, this was done for you.
 
-### 5. Use it
+### 6. Use it
 
 Start a Claude Code session. Claude now has reminder tools. Try:
 
