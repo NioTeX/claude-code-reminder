@@ -70,29 +70,36 @@ Add to your project's `.mcp.json`, or globally in `~/.claude/.mcp.json`:
 
 See `.mcp.json.example` for a template.
 
-### 4. Start Claude Code
+### 4. Start Claude Code with channel support
 
-The reminders MCP server uses **channel notifications** to inject due reminders into your conversation. This is an experimental Claude Code feature, so you need to accept the development channels prompt when starting your session.
+The reminders MCP server uses **channel notifications** to push due reminders into your conversation. This requires loading it as a development channel server when starting Claude Code.
 
-**Option A: Accept when prompted**
-
-Start Claude Code normally. When it loads the reminders MCP server for the first time, it will prompt you to accept the experimental channel capabilities. Say yes.
+Start Claude Code with the `--dangerously-load-development-channels` flag and point `server:reminder` at the MCP server name from your `.mcp.json`:
 
 ```bash
-claude
+claude --dangerously-load-development-channels server:reminders
 ```
 
-**Option B: Auto-accept with the flag**
+The `server:reminders` part tells Claude Code to load the `reminders` MCP server (from your `.mcp.json`) as a channel source. Without this flag, the MCP tools will work but due reminders won't appear as notifications in your conversation.
 
-If you want to skip the prompt (e.g., for automated/headless sessions), start Claude Code with:
+**Full example** (with other channels and flags):
 
 ```bash
-claude --dangerously-load-development-channels
+claude \
+  --dangerously-load-development-channels server:reminders \
+  --resume my-session
 ```
 
-This flag auto-accepts experimental channel capabilities for all MCP servers in that session.
+You can combine multiple channel sources:
 
-> **Note:** The MCP server must be running (i.e., Claude Code must be open) for webhook delivery to work. If Claude Code is not running, the cron script falls back to Telegram.
+```bash
+claude \
+  --channels plugin:telegram@claude-plugins-official \
+  --dangerously-load-development-channels server:reminders \
+  --resume my-session
+```
+
+> **Note:** The MCP server must be running (i.e., Claude Code must be open) for webhook delivery to work. If Claude Code is not running when a reminder is due, the cron script falls back to Telegram.
 
 ### 5. Set up the cron job
 
